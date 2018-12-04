@@ -1,6 +1,4 @@
 Feature: 
-
-	
 	@DP-2 
 	Scenario: Addition1
 		Given I open google
