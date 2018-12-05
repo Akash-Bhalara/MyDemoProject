@@ -24,7 +24,7 @@ public class googleCalcStepDefinition {
 	
 	 @Before
 	    public void setup() {
-		 System.setProperty("webdriver.chrome.driver","E:\\MyXrayDemoWorkSpace\\cucumberJava1\\cucumberJava\\chromedriver.exe"); 
+		 System.setProperty("webdriver.chrome.driver","E:\\chromedriver.exe"); 
 	        driver = new ChromeDriver();
 	}
 		
