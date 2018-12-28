@@ -24,38 +24,43 @@ public class googleCalcStepDefinition {
 	
 	 @Before
 	    public void setup() {
-		 System.setProperty("webdriver.chrome.driver","E:\\chromedriver.exe"); 
+		 System.setProperty("webdriver.chrome.driver","D:\\Workspace\\MyDemoProject\\chromedriver.exe"); 
 	        driver = new ChromeDriver();
 	}
-		
-	@Given("^I open google$")
-	public void I_open_google() {
+	 @Given("^open google url\"([^\"]*)\"$")
+	 public void open_google_url(String arg1) throws Throwable {
 		//Set implicit wait of 10 seconds and launch google
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-		driver.get("https://www.google.co.in");
-	}
-	
-	@When("^I enter \"([^\"]*)\" in search textbox$")
-	public void I_enter_in_search_textbox(String additionTerms) throws InterruptedException {
-		WebElement e= driver.findElement(By.xpath("//INPUT[@id='lst-ib']"));
-		e.click();
-		e.sendKeys(additionTerms);
-		//Write term in google textbox
-		Thread.sleep(5000);
-		e.sendKeys(Keys.ENTER);
-	}
-	
-	@Then("^I should get result as \"([^\"]*)\"$")
-	public void I_should_get_correct_result(String expectedResult) throws InterruptedException {
-		//Get result from calculator
-		WebElement e = driver.findElement(By.xpath("//DIV[@class='cwtlotc']"));
-		String matchString = e.getText();
-		Thread.sleep(5000);	
-		//Verify that result of 2+2 is 4
-		Assert.assertTrue(matchString.contains("4"));
-		driver.close();
-	}
-	
+			driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+			driver.get(arg1);
+	 }
+
+	 @When("^enter details\"([^\"]*)\"in text box$")
+	 public void enter_details_in_text_box(String arg1) throws Throwable {
+		 	WebElement e= driver.findElement(By.xpath("//INPUT[@class='gLFyf gsfi']"));
+			e.click();
+			e.sendKeys(arg1);
+	 }
+
+	 @Then("^result\"([^\"]*)\"should be displayed in box$")
+	 public void result_should_be_displayed_in_box(String arg1) throws Throwable {
+		  	//Get result from calculator
+					WebElement e = driver.findElement(By.xpath("//DIV[@class='cwtlotc']"));
+					String matchString = e.getText();
+					Thread.sleep(5000);	
+					//Verify that result of 2+2 is 4
+					Assert.assertTrue(matchString.contains(arg1));
+					driver.close();
+	 }
+
+	    @When("^hit on enter key$")
+	    public void hit_on_enter_key() throws Throwable {
+	    	WebElement e= driver.findElement(By.xpath("//INPUT[@class='gLFyf gsfi']"));
+	    	Thread.sleep(5000);
+			e.sendKeys(Keys.ENTER);
+	    }
+	    
+	  
+	   
 	 @After
 	    public void closeBrowser() {
 	        driver.quit();
